@@ -19,6 +19,8 @@ psycopg = "^3.2.3"
 ruff = "^0.7.2"
 pytest = "^8.3.3"
 taskipy = "^1.14.0"
+pytest-cov = "^6.0.0"
+factory-boy = "^3.3.1"
 
 [tool.ruff]
 line-length = 79

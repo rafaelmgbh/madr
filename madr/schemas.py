@@ -8,3 +8,11 @@ class RomancistaSchema(BaseModel):
 class RomancistaPublic(BaseModel):
     id: int
     nome: str
+
+
+class RomancistaList(BaseModel):
+    romancistas: list[RomancistaPublic]
+
+
+class Mensagem(BaseModel):
+    mensagem: str
