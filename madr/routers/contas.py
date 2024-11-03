@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from madr.database import get_session
 from madr.models import Conta
-from madr.schemas import ContaPublic, ContaSchema
+from madr.schemas import ContaPublic, ContaSchema, ContaList
 from madr.security import get_current_user, get_password_hash
 
 router = APIRouter(prefix="/contas ", tags=["contas"])
@@ -46,3 +46,9 @@ def create_conta(conta: ContaSchema, session: Session):
     session.refresh(db_conta)
 
     return db_conta
+
+
+@router.get("/", response_model=ContaList)
+def read_users(session: Session):
+    contas = session.scalars(select(Conta)).all()
+    return {"contas": contas}

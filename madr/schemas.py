@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 
 class RomancistaSchema(BaseModel):
@@ -28,6 +28,11 @@ class ContaPublic(BaseModel):
     id: int
     username: str
     email: EmailStr
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ContaList(BaseModel):
+    contas: list[ContaPublic]
 
 
 class Token(BaseModel):
