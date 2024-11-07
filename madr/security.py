@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from zoneinfo import ZoneInfo
 
 from madr.database import get_session
-from madr.models import Conta
+from madr.models import User
 from madr.schemas import TokenData
 from madr.settings import Settings
 
@@ -65,7 +65,7 @@ def get_current_user(
         raise credentials_exception
 
     user = session.scalar(
-        select(Conta).where(Conta.email == token_data.username)
+        select(User).where(User.email == token_data.username)
     )
 
     if not user:

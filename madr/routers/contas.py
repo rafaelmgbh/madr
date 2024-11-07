@@ -6,20 +6,20 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from madr.database import get_session
-from madr.models import Conta
-from madr.schemas import ContaPublic, ContaSchema, ContaList
+from madr.models import User
+from madr.schemas import ContaList, ContaPublic, ContaSchema
 from madr.security import get_current_user, get_password_hash
 
 router = APIRouter(prefix="/contas ", tags=["contas"])
 Session = Annotated[Session, Depends(get_session)]
-CurrentUser = Annotated[Conta, Depends(get_current_user)]
+CurrentUser = Annotated[User, Depends(get_current_user)]
 
 
 @router.post("/", status_code=HTTPStatus.CREATED, response_model=ContaPublic)
 def create_conta(conta: ContaSchema, session: Session):
     db_conta = session.scalar(
-        select(Conta).where(
-            (Conta.email == conta.email) | (Conta.username == conta.username)
+        select(User).where(
+            (User.email == conta.email) | (User.username == conta.username)
         )
     )
     if db_conta:
@@ -35,7 +35,7 @@ def create_conta(conta: ContaSchema, session: Session):
             )
 
     hashed_password = get_password_hash(conta.password)
-    db_conta = Conta(
+    db_conta = User(
         email=conta.email,
         username=conta.username,
         password=hashed_password,
@@ -50,5 +50,5 @@ def create_conta(conta: ContaSchema, session: Session):
 
 @router.get("/", response_model=ContaList)
 def read_users(session: Session):
-    contas = session.scalars(select(Conta)).all()
+    contas = session.scalars(select(User)).all()
     return {"contas": contas}

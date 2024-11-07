@@ -40,6 +40,9 @@ pre_test = 'task lint'
 test = 'pytest -s -x --cov=madr -vv'
 post_test = 'coverage html'
 run = 'fastapi dev madr/app.py'
+auto_migration = 'alembic revision --autogenerate -m'
+migration_up = 'alembic upgrade head'
+migration_down = 'alembic downgrade -1'
 
 [build-system]
 requires = ["poetry-core"]

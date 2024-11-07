@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class RomancistaSchema(BaseModel):
@@ -42,3 +42,17 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+
+
+class LivroSchema(BaseModel):
+    ano: int
+    titulo: str
+    romancista_id: int
+
+
+class LivroPublic(LivroSchema):
+    id: int
+
+
+class LivroList(BaseModel):
+    livros: list[LivroPublic]

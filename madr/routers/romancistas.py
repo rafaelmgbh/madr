@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from madr.database import get_session
-from madr.models import Conta, Romancista
+from madr.models import Romancista, User
 from madr.schemas import (
     Mensagem,
     RomancistaList,
@@ -17,7 +17,7 @@ from madr.security import get_current_user
 
 router = APIRouter(prefix="/romancistas", tags=["Romancistas"])
 Session = Annotated[Session, Depends(get_session)]
-CurrentUser = Annotated[Conta, Depends(get_current_user)]
+CurrentUser = Annotated[User, Depends(get_current_user)]
 
 
 @router.post(

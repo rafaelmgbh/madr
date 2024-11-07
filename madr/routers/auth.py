@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from madr.database import get_session
-from madr.models import Conta
+from madr.models import User
 from madr.schemas import Token
 from madr.security import (
     create_access_token,
@@ -23,7 +23,7 @@ def login_for_access_token(
     session: Session = Depends(get_session),
 ):
     conta = session.scalar(
-        select(Conta).where(Conta.username == form_data.username)
+        select(User).where(User.username == form_data.username)
     )
 
     if not conta:
@@ -45,7 +45,7 @@ def login_for_access_token(
 
 @router.post("/refresh_token", response_model=Token)
 def refresh_access_token(
-    conta: Conta = Depends(get_current_user),
+    conta: User = Depends(get_current_user),
 ):
     new_access_token = create_access_token(data={"sub": conta.email})
 

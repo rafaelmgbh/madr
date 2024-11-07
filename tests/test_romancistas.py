@@ -2,9 +2,6 @@ from http import HTTPStatus
 
 
 def test_criar_romancista(client, user, token):
-    print(user.id)
-    print(user.username)
-    print(user.email)
     response = client.post(
         "/romancistas/",
         headers={"Authorization": f"Bearer {token}"},

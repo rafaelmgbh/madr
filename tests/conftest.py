@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from madr.app import app
 from madr.database import get_session
-from madr.models import Conta, Romancista, table_registry
+from madr.models import Romancista, User, table_registry
 from madr.security import get_password_hash
 
 
@@ -19,7 +19,7 @@ class RomancistaFactory(factory.Factory):
 
 class UserFactory(factory.Factory):
     class Meta:
-        model = Conta
+        model = User
 
     username = factory.Sequence(lambda n: f"test{n}")
     email = factory.LazyAttribute(lambda obj: f"{obj.username}@test.com")
